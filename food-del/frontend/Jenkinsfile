@@ -3,17 +3,17 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', poll: false, url: 'https://github.com/ayushmansingh2711/react-jenikns-pine-line/tree/main/food-del/frontend'
+                git branch: 'main', poll: false, url: 'https://github.com/diksha067/react-jenikns-pine-line/blob/main/food-del/frontend/Jenkinsfile'
             }
         }
 
         stage('Build and Push Images') {
             steps {
                 script {
-                    sh 'docker build -t ayushman2711/react-app .'
+                    sh 'docker build -t diksha067/react-app .'
                     withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'ay_pass', usernameVariable: 'ay_user')]) {
                         sh 'docker login -u $ay_user -p $ay_pass'
-                        sh 'docker push ayushman2711/react-app '
+                        sh 'docker push diksha067/react-app '
                     }
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     sh 'docker rm -f  react-app-jenkins'
-                    sh 'docker run -d --name react-app-jenkins -p 5173:5173 ayushman2711/react-app'
+                    sh 'docker run -d --name react-app-jenkins -p 5173:5173 diksha067/react-app'
                 }
             }
         }
